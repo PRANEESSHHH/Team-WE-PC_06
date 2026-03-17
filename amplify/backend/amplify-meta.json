@@ -1,0 +1,58 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-cloudcrypt-dev-bb619-authRole",
+      "UnauthRoleArn": "arn:aws:iam::283250832693:role/amplify-cloudcrypt-dev-bb619-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::283250832693:role/amplify-cloudcrypt-dev-bb619-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-cloudcrypt-dev-bb619-deployment",
+      "UnauthRoleName": "amplify-cloudcrypt-dev-bb619-unauthRole",
+      "StackName": "amplify-cloudcrypt-dev-bb619",
+      "StackId": "arn:aws:cloudformation:ap-south-1:283250832693:stack/amplify-cloudcrypt-dev-bb619/9b7708e0-21db-11f1-b1f2-02014d0e7eed",
+      "AmplifyAppId": "d2arys6ibaul18"
+    }
+  },
+  "auth": {
+    "cloudcrypta313e0d7": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-cloudcrypt-dev-bb619-deployment/amplify-cfn-templates/auth/cloudcrypta313e0d7-cloudformation-template.json",
+        "logicalId": "authcloudcrypta313e0d7"
+      },
+      "lastPushTimeStamp": "2026-03-17T08:36:18.370Z",
+      "output": {
+        "UserPoolId": "ap-south-1_yQiALWw4P",
+        "AppClientIDWeb": "vfj3puhk50j412nvega36dlkf",
+        "AppClientID": "70m61bsuarpe7t38blu5mq09ri",
+        "IdentityPoolId": "ap-south-1:1cbe7da4-8627-4654-a6f2-da4088a6c629",
+        "UserPoolArn": "arn:aws:cognito-idp:ap-south-1:283250832693:userpool/ap-south-1_yQiALWw4P",
+        "IdentityPoolName": "cloudcrypta313e0d7_identitypool_a313e0d7__dev",
+        "UserPoolName": "cloudcrypta313e0d7_userpool_a313e0d7"
+      },
+      "lastPushDirHash": "0ZUYK88/6IO3C7SrGQiDHO/EMPI="
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-cloudcrypt-dev-bb619-authRole",
+      "UnauthRoleArn": "arn:aws:iam::283250832693:role/amplify-cloudcrypt-dev-bb619-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::283250832693:role/amplify-cloudcrypt-dev-bb619-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-cloudcrypt-dev-bb619-deployment",
+      "UnauthRoleName": "amplify-cloudcrypt-dev-bb619-unauthRole",
+      "StackName": "amplify-cloudcrypt-dev-bb619",
+      "StackId": "arn:aws:cloudformation:ap-south-1:283250832693:stack/amplify-cloudcrypt-dev-bb619/9b7708e0-21db-11f1-b1f2-02014d0e7eed",
+      "AmplifyAppId": "d2arys6ibaul18"
+    },
+    "categories": {
+      "auth": {
+        "cloudcrypta313e0d7": {}
+      }
+    }
+  }
+}
