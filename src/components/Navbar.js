@@ -6,7 +6,7 @@ const Navbar = ({ user, onLogout }) => {
     <nav className="navbar">
       <div className="navbar-container">
         <div className="navbar-brand">
-          <h1 className="navbar-logo">☁️🔐 CloudCrypt</h1>
+          <h1 className="navbar-logo">  CloudCrypt</h1>
         </div>
         
         <div className="navbar-user">

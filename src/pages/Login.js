@@ -41,7 +41,7 @@ const Login = ({ onLogin }) => {
     <div className="login-container">
       <div className="login-card">
         <div className="login-header">
-          <h1 className="logo">☁️🔐 CloudCrypt</h1>
+          <h1 className="logo">CloudCrypt</h1>
           <p className="tagline">Secure Cloud Storage with Encryption</p>
         </div>
 
