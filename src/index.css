@@ -1,13 +1,102 @@
+/* ===================================
+   GLOBAL STYLES WITH MICHROMA FONT
+   =================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #0F2027;
+  color: #1e293b;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* ===================================
+   MICHROMA FONT UTILITIES
+   =================================== */
+
+/* Use Michroma for headings and brand elements */
+h1, h2, h3, h4, h5, h6,
+.brand-text,
+.heading-text,
+.logo-text {
+  font-family: 'Michroma', sans-serif;
+  letter-spacing: 1.5px;
+  font-weight: 400;
+}
+
+/* Body text uses Inter */
+p, span, div, button, input, textarea, select {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ===================================
+   SCROLLBAR STYLING
+   =================================== */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 32, 39, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+/* ===================================
+   UTILITY CLASSES
+   =================================== */
+
+.michroma-font {
+  font-family: 'Michroma', sans-serif !important;
+  letter-spacing: 1.5px;
+}
+
+.inter-font {
+  font-family: 'Inter', sans-serif !important;
+}
+
+/* Text selection */
+::selection {
+  background: rgba(102, 126, 234, 0.3);
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background: rgba(102, 126, 234, 0.3);
+  color: #ffffff;
+}
+
+/* Focus styles */
+*:focus {
+  outline: 2px solid rgba(102, 126, 234, 0.5);
+  outline-offset: 2px;
+}
+
+button:focus,
+a:focus {
+  outline: 2px solid rgba(102, 126, 234, 0.5);
+  outline-offset: 2px;
 }

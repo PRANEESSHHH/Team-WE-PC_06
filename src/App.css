@@ -11,6 +11,13 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #1e293b;
+  min-height: 100vh;
+}
+
+/* Headings use Michroma */
+.App h1, .App h2, .App h3, .App h4, .App h5, .App h6 {
+  font-family: 'Michroma', sans-serif;
+  letter-spacing: 1.5px;
 }
 
 .loading-screen {
@@ -41,15 +48,26 @@
 }
 
 .loading-screen h1 {
-  font-size: 3.2rem;
-  margin-bottom: 35px;
+  font-family: 'Michroma', sans-serif;
+  font-size: 3rem;
+  margin-bottom: 2rem;
   background: linear-gradient(135deg, #ffffff 0%, #3B82F6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  font-weight: 800;
+  letter-spacing: 4px;
+  animation: glow 2s ease-in-out infinite alternate;
   position: relative;
   z-index: 1;
+}
+
+@keyframes glow {
+  from {
+    filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+  }
+  to {
+    filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.8));
+  }
 }
 
 .spinner {

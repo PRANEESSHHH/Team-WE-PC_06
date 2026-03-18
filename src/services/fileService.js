@@ -1,10 +1,8 @@
-// 🔄 FILE SERVICE - S3 + DynamoDB Integration
 import { uploadToS3, deleteFromS3, getSignedUrl } from './s3Service';
 import { saveMetadata, getFiles, deleteMetadata, getFileMetadata } from './dbService';
 
 /**
- * 📤 COMPLETE UPLOAD FLOW
- * Uploads file to S3 and saves metadata to DynamoDB
+ * Complete upload flow - Upload to S3 and save metadata to DynamoDB
  */
 export const handleUpload = async (file, userId, onProgress) => {
   try {
@@ -27,6 +25,7 @@ export const handleUpload = async (file, userId, onProgress) => {
       fileSize: file.size,
       fileType: file.type,
       s3Key: result.fileKey,
+      fileKey: result.fileKey,
       fileUrl: result.url,
       uploadTime: new Date().toISOString()
     };
@@ -44,8 +43,7 @@ export const handleUpload = async (file, userId, onProgress) => {
 };
 
 /**
- * 📥 GET USER'S FILE LIST
- * Fetches all files for a user from DynamoDB
+ * Get all files for a user from DynamoDB
  */
 export const handleGetFiles = async (userId) => {
   try {
@@ -62,8 +60,7 @@ export const handleGetFiles = async (userId) => {
 };
 
 /**
- * 🗑️ COMPLETE DELETE FLOW
- * Deletes file from S3 and removes metadata from DynamoDB
+ * Complete delete flow - Delete from S3 and remove metadata from DynamoDB
  */
 export const handleDelete = async (fileId) => {
   try {
@@ -79,8 +76,8 @@ export const handleDelete = async (fileId) => {
     console.log("📄 File metadata retrieved:", fileMetadata.fileName);
 
     // Step 2: Delete from S3
-    await deleteFromS3(fileMetadata.s3Key);
-    console.log("✅ File deleted from S3:", fileMetadata.s3Key);
+    await deleteFromS3(fileMetadata.s3Key || fileMetadata.fileKey);
+    console.log("✅ File deleted from S3:", fileMetadata.s3Key || fileMetadata.fileKey);
 
     // Step 3: Delete metadata from DynamoDB
     await deleteMetadata(fileId);
@@ -97,8 +94,7 @@ export const handleDelete = async (fileId) => {
 };
 
 /**
- * 👁️ GET DOWNLOAD URL
- * Generates a signed URL for downloading a file
+ * Get download URL for a file
  */
 export const handleGetDownloadUrl = async (fileId) => {
   try {
@@ -114,14 +110,11 @@ export const handleGetDownloadUrl = async (fileId) => {
     console.log("📄 Generating signed URL for:", fileMetadata.fileName);
 
     // Generate signed URL from S3
-    const url = await getSignedUrl(fileMetadata.s3Key);
+    const url = await getSignedUrl(fileMetadata.s3Key || fileMetadata.fileKey);
     
     console.log("✅ Signed URL generated");
 
-    return {
-      url,
-      fileName: fileMetadata.fileName
-    };
+    return url;
   } catch (err) {
     console.error("❌ Failed to generate download URL:", err);
     throw new Error(`Failed to generate download URL: ${err.message}`);

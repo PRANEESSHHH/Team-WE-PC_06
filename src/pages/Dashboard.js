@@ -38,12 +38,12 @@ const Dashboard = ({ user, onLogout }) => {
     }
   };
 
-  const handleUploadComplete = (newFile) => {
-    // Add new file to the list (prepend to show at top)
-    const updatedFiles = [newFile, ...files];
-    setFiles(updatedFiles);
+  const handleUploadComplete = async (newFile) => {
+    // Refresh the entire file list from DynamoDB
+    // This ensures consistency with what's actually stored
+    await fetchFiles();
     setIsUploadModalOpen(false);
-    console.log('✅ File added to list');
+    console.log('✅ File list refreshed from DynamoDB');
   };
 
   const handleDelete = async (fileId) => {
@@ -52,19 +52,13 @@ const Dashboard = ({ user, onLogout }) => {
     }
 
     try {
-      const { handleDelete: deleteFile } = await import('../services/fileService');
+      const { handleDelete } = await import('../services/fileService');
+      await handleDelete(fileId);
       
-      console.log('🗑️ Deleting file:', fileId);
-      
-      // Delete from S3 and DynamoDB
-      await deleteFile(fileId);
-      
-      // Update UI - remove from list
-      const updatedFiles = files.filter(f => f.fileId !== fileId);
-      setFiles(updatedFiles);
+      // Remove from local state
+      setFiles(prevFiles => prevFiles.filter(f => f.fileId !== fileId));
       
       console.log('✅ File deleted successfully');
-      
     } catch (error) {
       console.error('❌ Error deleting file:', error);
       alert(`Failed to delete file: ${error.message}`);

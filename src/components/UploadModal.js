@@ -46,7 +46,7 @@ const UploadModal = ({ onClose, onUploadComplete }) => {
 
       // Upload file with progress tracking
       const result = await uploadFile(selectedFile, user.email, (progress) => {
-        setUploadProgress(progress);
+        setUploadProgress(progress.percentage || 0);
       });
 
       console.log("✅ Upload successful:", result);
@@ -142,7 +142,7 @@ const UploadModal = ({ onClose, onUploadComplete }) => {
                           style={{ width: `${uploadProgress}%` }}
                         ></div>
                       </div>
-                      <p className="progress-text">{uploadProgress}%</p>
+                      <p className="progress-text">{Math.round(uploadProgress)}%</p>
                     </div>
                   )}
 

@@ -1,93 +1,206 @@
+/* ===================================
+   NAVBAR COMPONENT STYLES
+   =================================== */
+
 .navbar {
-  background: rgba(255, 255, 255, 0.95);
+  background: linear-gradient(135deg, #0F2027 0%, #203A43 50%, #2C5364 100%);
   backdrop-filter: blur(20px);
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06),
-              0 1px 0 rgba(0, 0, 0, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
   position: sticky;
   top: 0;
-  z-index: 100;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  z-index: 1000;
+  padding: 0;
 }
 
 .navbar-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 16px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 1rem 2rem;
 }
+
+/* ===================================
+   BRAND SECTION
+   =================================== */
 
 .navbar-brand {
   display: flex;
   align-items: center;
+  gap: 0.75rem;
+  cursor: default;
 }
 
-.navbar-logo {
-  font-size: 1.6rem;
-  margin: 0;
-  background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+.brand-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+  color: white;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  }
+  50% {
+    box-shadow: 0 4px 25px rgba(102, 126, 234, 0.6);
+  }
+}
+
+.brand-name {
+  font-family: 'Michroma', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #ffffff 0%, #a8c0ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  font-weight: 800;
-  letter-spacing: -0.5px;
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
 }
+
+/* ===================================
+   USER SECTION
+   =================================== */
 
 .navbar-user {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 1.5rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: 'Michroma', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
 }
 
 .user-email {
-  color: #666;
-  font-size: 0.95rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.9rem;
+  color: #ffffff;
   font-weight: 500;
-  display: none;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
+/* ===================================
+   LOGOUT BUTTON
+   =================================== */
+
 .btn-logout {
-  background: #f1f5f9;
-  color: #475569;
-  border: 1px solid #e2e8f0;
-  padding: 10px 22px;
-  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  background: rgba(239, 68, 68, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
 }
 
 .btn-logout:hover {
-  background: #e2e8f0;
-  color: #334155;
-  border-color: #cbd5e1;
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.5);
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .btn-logout:active {
   transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
 }
 
-@media (min-width: 768px) {
-  .user-email {
-    display: block;
+.btn-logout svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+
+@media (max-width: 768px) {
+  .navbar-container {
+    padding: 0.75rem 1rem;
   }
 
-  .navbar-logo {
-    font-size: 1.8rem;
+  .brand-name {
+    font-size: 1.2rem;
+    letter-spacing: 1.5px;
+  }
+
+  .brand-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .user-email {
+    display: none;
+  }
+
+  .user-info {
+    padding: 0.4rem;
+  }
+
+  .btn-logout span {
+    display: none;
+  }
+
+  .btn-logout {
+    padding: 0.65rem;
+    min-width: auto;
+  }
+
+  .navbar-user {
+    gap: 0.75rem;
   }
 }
 
 @media (max-width: 480px) {
-  .navbar-logo {
-    font-size: 1.3rem;
+  .brand-name {
+    font-size: 1rem;
+    letter-spacing: 1px;
   }
-  
-  .btn-logout {
-    padding: 8px 16px;
-    font-size: 0.85rem;
+
+  .brand-icon {
+    width: 32px;
+    height: 32px;
   }
 }

@@ -3,84 +3,117 @@ import { v4 as uuidv4 } from "uuid";
 
 const db = new AWS.DynamoDB.DocumentClient();
 
-// 💾 SAVE FILE METADATA TO DYNAMODB
+const TABLE_NAME = 'FileMetadata';
+
+/**
+ * Save file metadata to DynamoDB
+ */
 export const saveMetadata = async (file, fileKey, url, userId) => {
   const fileId = uuidv4();
-  
+  const timestamp = new Date().toISOString();
+
+  const item = {
+    fileId: fileId,
+    userId: userId,
+    fileName: file.name,
+    fileSize: file.size,
+    fileType: file.type,
+    fileKey: fileKey,
+    s3Key: fileKey,
+    uploadTime: timestamp,
+    lastModified: timestamp,
+    status: 'active'
+  };
+
   const params = {
-    TableName: "FileMetadata",
-    Item: {
-      fileId: fileId,
-      userId: userId,
-      fileName: file.name,
-      fileSize: file.size,
-      fileType: file.type,
-      s3Key: fileKey,
-      fileUrl: url,
-      uploadTime: new Date().toISOString()
-    }
+    TableName: TABLE_NAME,
+    Item: item
   };
 
   try {
     await db.put(params).promise();
-    console.log("✅ File metadata saved to DynamoDB");
     return fileId;
-  } catch (err) {
-    console.error("❌ DynamoDB Save Error:", err);
-    throw new Error(`Failed to save metadata: ${err.message}`);
+  } catch (error) {
+    console.error('Error saving metadata to DynamoDB:', error);
+    throw error;
   }
 };
 
-// 📥 GET ALL FILES FOR A USER
+/**
+ * Get all files for a user from DynamoDB
+ */
 export const getFiles = async (userId) => {
   const params = {
-    TableName: "FileMetadata"
+    TableName: TABLE_NAME,
+    FilterExpression: 'userId = :userId AND #status = :status',
+    ExpressionAttributeNames: {
+      '#status': 'status'
+    },
+    ExpressionAttributeValues: {
+      ':userId': userId,
+      ':status': 'active'
+    }
   };
 
   try {
-    const data = await db.scan(params).promise();
+    const result = await db.scan(params).promise();
     
-    // Filter by userId and sort by upload time (newest first)
-    const userFiles = data.Items
-      .filter(item => item.userId === userId)
-      .sort((a, b) => new Date(b.uploadTime) - new Date(a.uploadTime));
+    // Sort by upload time (newest first)
+    const sortedFiles = result.Items.sort((a, b) => 
+      new Date(b.uploadTime) - new Date(a.uploadTime)
+    );
     
-    console.log(`✅ Retrieved ${userFiles.length} files from DynamoDB`);
-    return userFiles;
-  } catch (err) {
-    console.error("❌ DynamoDB Get Error:", err);
-    throw new Error(`Failed to fetch files: ${err.message}`);
+    return sortedFiles;
+  } catch (error) {
+    console.error('Error fetching files from DynamoDB:', error);
+    throw error;
   }
 };
 
-// 🗑️ DELETE FILE METADATA FROM DYNAMODB
+/**
+ * Delete file metadata from DynamoDB
+ */
 export const deleteMetadata = async (fileId) => {
   const params = {
-    TableName: "FileMetadata",
-    Key: { fileId }
+    TableName: TABLE_NAME,
+    Key: {
+      fileId: fileId
+    },
+    UpdateExpression: 'SET #status = :status, lastModified = :timestamp',
+    ExpressionAttributeNames: {
+      '#status': 'status'
+    },
+    ExpressionAttributeValues: {
+      ':status': 'deleted',
+      ':timestamp': new Date().toISOString()
+    }
   };
 
   try {
-    await db.delete(params).promise();
-    console.log("✅ File metadata deleted from DynamoDB");
-  } catch (err) {
-    console.error("❌ DynamoDB Delete Error:", err);
-    throw new Error(`Failed to delete metadata: ${err.message}`);
+    await db.update(params).promise();
+    return { success: true };
+  } catch (error) {
+    console.error('Error deleting metadata from DynamoDB:', error);
+    throw error;
   }
 };
 
-// 🔍 GET SINGLE FILE METADATA
+/**
+ * Get specific file metadata from DynamoDB
+ */
 export const getFileMetadata = async (fileId) => {
   const params = {
-    TableName: "FileMetadata",
-    Key: { fileId }
+    TableName: TABLE_NAME,
+    Key: {
+      fileId: fileId
+    }
   };
 
   try {
-    const data = await db.get(params).promise();
-    return data.Item;
-  } catch (err) {
-    console.error("❌ DynamoDB Get Error:", err);
-    throw new Error(`Failed to get file metadata: ${err.message}`);
+    const result = await db.get(params).promise();
+    return result.Item || null;
+  } catch (error) {
+    console.error('Error fetching file metadata from DynamoDB:', error);
+    throw error;
   }
 };
